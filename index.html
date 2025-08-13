@@ -96,6 +96,7 @@
             top: 1.5rem;
             right: 1rem;
             z-index: 10;
+            cursor: pointer;
         }
         
         nav {
@@ -345,76 +346,78 @@
             text-align: center;
         }
         
-        /* Testimonials */
-        .testimonials {
+        /* Quote Slider Section */
+        .quote-slider {
             padding: 3rem 1rem;
-            max-width: 1200px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slider-container {
+            max-width: 800px;
             margin: 0 auto;
-        }
-        
-        .testimonial-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .testimonial-card {
-            background: white;
-            border-radius: var(--radius-md);
-            padding: 1.5rem;
-            box-shadow: var(--shadow-sm);
             position: relative;
         }
         
-        .testimonial-card:before {
-            content: '"';
-            font-size: 5rem;
-            color: rgba(67, 97, 238, 0.1);
-            position: absolute;
-            top: 0;
-            left: 1rem;
-            line-height: 1;
+        .slide {
+            text-align: center;
+            padding: 2rem;
+            display: none;
+            animation: fadeIn 1s ease;
         }
         
-        .testimonial-text {
-            position: relative;
-            z-index: 2;
+        .slide.active {
+            display: block;
+        }
+        
+        .slide-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            margin: 0 auto 1.5rem;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .slide-quote {
+            font-size: 1.2rem;
             font-style: italic;
             margin-bottom: 1rem;
-            color: var(--dark);
+            line-height: 1.6;
         }
         
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-        
-        .author-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--primary-light);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .slide-author {
             font-weight: 600;
+            font-size: 1.1rem;
         }
         
-        .author-info h4 {
-            font-size: 0.95rem;
-            color: var(--dark);
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
         }
         
-        .author-info p {
-            font-size: 0.8rem;
-            color: var(--gray);
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: var(--transition);
         }
         
-        .testimonial-rating {
-            color: #ffc107;
-            margin-top: 0.25rem;
+        .dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
         /* CTA Section */
@@ -543,70 +546,31 @@
             background: var(--dark);
             color: white;
             padding: 3rem 1rem 1.5rem;
+            text-align: center;
         }
         
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-        }
-        
-        .footer-col h3 {
-            color: white;
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-        
-        .footer-col h3:after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 40px;
-            height: 2px;
-            background: var(--accent);
-        }
-        
-        .footer-col p {
-            opacity: 0.7;
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
             margin-bottom: 1rem;
-            font-size: 0.9rem;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 0.75rem;
-        }
-        
-        .footer-links a {
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
-            transition: var(--transition);
-            font-size: 0.9rem;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 0.5rem;
         }
         
-        .footer-links a:hover {
-            color: white;
-            transform: translateX(5px);
+        .footer-logo .logo-icon {
+            color: var(--accent);
         }
         
-        .social-links {
+        .footer-social {
             display: flex;
+            justify-content: center;
             gap: 1rem;
-            margin-top: 1.5rem;
+            margin: 1.5rem 0;
         }
         
-        .social-links a {
+        .footer-social a {
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -618,14 +582,13 @@
             transition: var(--transition);
         }
         
-        .social-links a:hover {
+        .footer-social a:hover {
             background: var(--accent);
             transform: translateY(-3px);
         }
         
         .copyright {
-            text-align: center;
-            margin-top: 3rem;
+            margin-top: 2rem;
             padding-top: 1.5rem;
             border-top: 1px solid rgba(255,255,255,0.1);
             font-size: 0.85rem;
@@ -698,6 +661,10 @@
                 width: 100%;
                 justify-content: center;
             }
+            
+            .slide-quote {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -718,7 +685,7 @@
             <nav id="mainNav">
                 <a href="#features"><i class="fas fa-star"></i> Why Us</a>
                 <a href="#courses"><i class="fas fa-book"></i> Courses</a>
-                <a href="#testimonials"><i class="fas fa-quote-left"></i> Reviews</a>
+                <a href="#quote-slider"><i class="fas fa-quote-left"></i> Quotes</a>
                 <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
                 <a href="https://wa.me/919419927293" target="_blank" class="btn-primary" style="margin-top: 1rem;">
                     <i class="fab fa-whatsapp"></i> Chat Now
@@ -862,71 +829,38 @@
         </div>
     </section>
     
-    <!-- Testimonials Section -->
-    <section class="testimonials" id="testimonials">
-        <div class="section-title">
-            <h2>What Our Students Say</h2>
-        </div>
-        
-        <div class="testimonial-cards">
-            <div class="testimonial-card">
-                <p class="testimonial-text">
-                    After just 8 weeks with SpeakSmart, I gained the confidence to speak in meetings at my IT job. The teachers are incredibly patient and supportive.
-                </p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">RK</div>
-                    <div class="author-info">
-                        <h4>Rajesh Kumar</h4>
-                        <p>Software Engineer, Bangalore</p>
-                        <div class="testimonial-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                </div>
+    <!-- Quote Slider Section -->
+    <section class="quote-slider" id="quote-slider">
+        <div class="slider-container">
+            <div class="slide active">
+                <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Inspirational quote" class="slide-img">
+                <p class="slide-quote">"The limits of my language mean the limits of my world."</p>
+                <p class="slide-author">- Ludwig Wittgenstein</p>
             </div>
             
-            <div class="testimonial-card">
-                <p class="testimonial-text">
-                    The small class size makes all the difference! I get to practice speaking much more than in traditional language schools. Highly recommended!
-                </p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">PS</div>
-                    <div class="author-info">
-                        <h4>Priya Sharma</h4>
-                        <p>College Student, Delhi</p>
-                        <div class="testimonial-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                    </div>
-                </div>
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Inspirational quote" class="slide-img">
+                <p class="slide-quote">"Learning another language is not only learning different words for the same things, but learning another way to think about things."</p>
+                <p class="slide-author">- Flora Lewis</p>
             </div>
             
-            <div class="testimonial-card">
-                <p class="testimonial-text">
-                    I was nervous about learning online, but the interactive classes and personalized feedback helped me improve my pronunciation significantly.
-                </p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">AM</div>
-                    <div class="author-info">
-                        <h4>Anjali Mehta</h4>
-                        <p>Homemaker, Mumbai</p>
-                        <div class="testimonial-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                </div>
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Inspirational quote" class="slide-img">
+                <p class="slide-quote">"One language sets you in a corridor for life. Two languages open every door along the way."</p>
+                <p class="slide-author">- Frank Smith</p>
+            </div>
+            
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1554151228-14d9def656e4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Inspirational quote" class="slide-img">
+                <p class="slide-quote">"To have another language is to possess a second soul."</p>
+                <p class="slide-author">- Charlemagne</p>
+            </div>
+            
+            <div class="slider-dots">
+                <div class="dot active" data-slide="0"></div>
+                <div class="dot" data-slide="1"></div>
+                <div class="dot" data-slide="2"></div>
+                <div class="dot" data-slide="3"></div>
             </div>
         </div>
     </section>
@@ -977,16 +911,6 @@
                         <a href="mailto:contact@speaksmarter.com">contact@speaksmarter.com</a>
                     </div>
                 </div>
-                
-                <div class="contact-method">
-                    <div class="contact-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <div class="contact-details">
-                        <h3>Working Hours</h3>
-                        <p>Monday - Saturday: 9AM - 8PM</p>
-                    </div>
-                </div>
             </div>
             
             <div class="contact-form">
@@ -1021,44 +945,17 @@
     
     <!-- Footer -->
     <footer>
-        <div class="footer-container">
-            <div class="footer-col">
-                <h3>About SpeakSmart</h3>
-                <p>We're dedicated to helping students achieve English fluency through interactive, student-centered online classes.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
-            
-            <div class="footer-col">
-                <h3>Quick Links</h3>
-                <ul class="footer-links">
-                    <li><a href="#features"><i class="fas fa-chevron-right"></i> Why Choose Us</a></li>
-                    <li><a href="#courses"><i class="fas fa-chevron-right"></i> Our Courses</a></li>
-                    <li><a href="#testimonials"><i class="fas fa-chevron-right"></i> Student Reviews</a></li>
-                    <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-col">
-                <h3>Courses</h3>
-                <ul class="footer-links">
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Basic English</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Conversation Mastery</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Business English</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> IELTS Preparation</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-col">
-                <h3>Contact Info</h3>
-                <p><i class="fas fa-map-marker-alt"></i> Online Classes Available Worldwide</p>
-                <p><i class="fas fa-phone"></i> +91 94199 27293</p>
-                <p><i class="fas fa-envelope"></i> contact@speaksmarter.com</p>
-            </div>
+        <div class="footer-logo">
+            <div class="logo-icon"><i class="fas fa-comment-dots"></i></div>
+            <span>SpeakSmart</span>
+        </div>
+        <p>Transform your English speaking skills with our interactive online classes</p>
+        
+        <div class="footer-social">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
         </div>
         
         <div class="copyright">
@@ -1110,7 +1007,7 @@
             // Reset form
             this.reset();
             
-            // Show success message (you could add a proper alert/notification)
+            // Show success message
             alert('Thank you! Your message has been sent. We will contact you shortly.');
         });
         
@@ -1128,6 +1025,35 @@
                         behavior: 'smooth'
                     });
                 }
+            });
+        });
+        
+        // Quote Slider
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        let currentSlide = 0;
+        
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentSlide = index;
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+        
+        // Auto slide change every 5 seconds
+        setInterval(nextSlide, 5000);
+        
+        // Dot navigation
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showSlide(index);
             });
         });
     </script>
