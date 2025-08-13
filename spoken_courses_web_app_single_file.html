@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SpeakSmart Academy — Online Spoken Courses</title>
+  <meta name="description" content="Master spoken English with confidence. Book live classes, explore courses, read FAQs and contact us." />
+  <style>
+    :root{
+      --bg:#0c0f14;            /* page background */
+      --panel:#121723;         /* card background */
+      --primary:#6ee7ff;       /* accent */
+      --primary-2:#7c3aed;     /* secondary accent */
+      --text:#e6edf6;          /* base text */
+      --muted:#9aa4b2;         /* secondary text */
+      --ok:#10b981;            /* success */
+      --warn:#f59e0b;          /* warning */
+      --err:#ef4444;           /* error */
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius-lg: 26px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%;scroll-behavior:smooth}
+    body{
+      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 600px at 10% -10%, #1a1f2c 0%, transparent 60%),
+                  radial-gradient(800px 400px at 110% 10%, #1b1335 0%, transparent 60%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+
+    /* --- Layout helpers --- */
+    .container{width: min(1100px, 92%); margin: 0 auto}
+    .grid{display:grid; gap:1.2rem}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:.6rem; padding:.9rem 1.15rem; border-radius: 999px; font-weight:700; letter-spacing:.2px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color:#0b0f15; border:none; cursor:pointer; box-shadow: var(--shadow);
+      transition: transform .15s ease, filter .2s ease;
+    }
+    .btn:hover{ transform: translateY(-2px); filter:brightness(1.05) }
+    .btn.ghost{ background: transparent; color: var(--text); border:1px solid #2a3244 }
+
+    /* --- Header --- */
+    header{ position:sticky; top:0; z-index:50; backdrop-filter: blur(10px);
+      background:linear-gradient(to bottom, rgba(12,15,20,.9), rgba(12,15,20,.6)); border-bottom:1px solid rgba(255,255,255,.06) }
+    .nav{ display:flex; align-items:center; justify-content:space-between; padding:.7rem 0 }
+    .brand{ display:flex; align-items:center; gap:.7rem; font-weight:800; }
+    .brand .logo{ width:40px; height:40px; border-radius:12px; background:linear-gradient(135deg, var(--primary-2), var(--primary)); display:grid; place-items:center; color:#0b0f15; font-weight:900 }
+    nav ul{ display:flex; align-items:center; gap:1rem; list-style:none; margin:0; padding:0 }
+    nav a{ color:var(--muted); text-decoration:none; font-weight:600; padding:.6rem .8rem; border-radius:999px }
+    nav a:hover, nav a.active{ color:var(--text); background:#1a2233 }
+    .burger{ display:none; width:44px; height:44px; border-radius:14px; border:1px solid #253049; background:#121826; color:var(--text)}
+
+    /* --- Hero --- */
+    .hero{ position:relative; padding: 72px 0 48px; }
+    .hero-inner{ display:grid; grid-template-columns: 1.15fr .85fr; gap:2rem; align-items:center }
+    .hero h1{ font-size: clamp(1.8rem, 2.6vw + 1rem, 3.2rem); line-height:1.12; margin:.2rem 0 .6rem }
+    .hero p{ color:var(--muted); margin:.5rem 0 1.2rem }
+    .hero-card{ background:linear-gradient(180deg, #121826, #0f1420); border:1px solid #1f2a3e; border-radius: var(--radius-lg); padding:1.2rem; box-shadow: var(--shadow) }
+    .hero-badges{ display:flex; flex-wrap:wrap; gap:.6rem; margin: .6rem 0 1rem }
+    .badge{ padding:.35rem .6rem; border-radius:999px; background:#101827; border:1px solid #283147; color:var(--muted); font-size:.85rem }
+    .statbar{ margin-top:1rem; display:flex; gap:1rem; flex-wrap:wrap }
+    .stat{ background:#0f1624; border:1px solid #223049; padding:.7rem 1rem; border-radius:14px; text-align:center }
+    .stat b{ display:block; font-size:1.2rem }
+
+    /* --- Quotes Slider --- */
+    .quotes{ margin: 36px 0 12px }
+    .quote-card{ position:relative; overflow:hidden; border-radius: var(--radius); border:1px solid #21304b; background: #0f1420; padding: 1.1rem; min-height:110px }
+    .quote-text{ font-size:1.05rem }
+    .quote-author{ color:var(--muted); font-size:.95rem; margin-top:.3rem }
+
+    /* --- Courses --- */
+    #courses .grid{ grid-template-columns: repeat(5, 1fr) }
+    @media (max-width: 1100px){ #courses .grid{ grid-template-columns: repeat(3, 1fr) } }
+    @media (max-width: 720px){ #courses .grid{ grid-template-columns: 1fr 1fr } }
+    @media (max-width: 460px){ #courses .grid{ grid-template-columns: 1fr } }
+    .card{ background: #0f1420; border:1px solid #21304b; border-radius: var(--radius); overflow:hidden; box-shadow: var(--shadow); display:flex; flex-direction:column }
+    .card img{ width:100%; height:170px; object-fit:cover; display:block }
+    .card .body{ padding:.9rem }
+    .card h3{ margin:.1rem 0 .3rem; font-size:1.05rem }
+    .card p{ color:var(--muted); font-size:.95rem; min-height: 48px }
+    .meta{ display:flex; align-items:center; justify-content:space-between; margin:.7rem 0 }
+    .chip{ font-size:.85rem; padding:.25rem .6rem; border-radius:999px; background:#121a2a; border:1px solid #263653; color:var(--muted) }
+
+    /* --- Sections --- */
+    section{ padding: 42px 0 }
+    section h2{ font-size: clamp(1.4rem, 1.4vw + .9rem, 2rem); margin:0 0 .6rem }
+    section .lead{ color:var(--muted); margin:0 0 1.2rem }
+
+    /* --- About --- */
+    .about{ display:grid; grid-template-columns: 1fr 1fr; gap:1.6rem }
+    @media (max-width: 900px){ .about{ grid-template-columns: 1fr } }
+    .about .panel{ background:#0f1420; border:1px solid #21304b; border-radius: var(--radius); padding:1rem }
+
+    /* --- Booking --- */
+    form{ display:grid; gap:.9rem }
+    .field{ display:grid; gap:.35rem }
+    .field label{ font-weight:600 }
+    .input{ padding:.85rem; background:#0c1220; border:1px solid #22334f; border-radius:12px; color:var(--text) }
+    .two{ display:grid; grid-template-columns: 1fr 1fr; gap:.9rem }
+    @media (max-width:700px){ .two{ grid-template-columns:1fr } }
+    .note{ color:var(--muted); font-size:.92rem }
+    .success, .error{ padding:.85rem; border-radius:12px; margin-top:.6rem; display:none }
+    .success{ background: rgba(16,185,129,.12); border:1px solid rgba(16,185,129,.35); color:#a7f3d0 }
+    .error{ background: rgba(239,68,68,.12); border:1px solid rgba(239,68,68,.35); color:#fecaca }
+
+    /* --- Testimonials --- */
+    .twrap{ position:relative; overflow:hidden; border:1px solid #21304b; border-radius: var(--radius); background:#0f1420 }
+    .titems{ display:flex; transition: transform .5s ease }
+    .tcard{ min-width:100%; padding:1rem; }
+    .tquote{ font-size:1.05rem }
+    .tdots{ display:flex; gap:.5rem; justify-content:center; margin-top:.6rem }
+    .tdots button{ width:9px; height:9px; border-radius:999px; background:#2a3754; border:none }
+    .tdots button.active{ background:linear-gradient(135deg, var(--primary), var(--primary-2)) }
+
+    /* --- FAQ --- */
+    .faq{ display:grid; gap:.7rem }
+    details{ background:#0f1420; border:1px solid #21304b; border-radius:14px; padding:.7rem }
+    summary{ cursor:pointer; font-weight:700 }
+    details p{ margin:.5rem 0 0; color:var(--muted) }
+
+    /* --- Contact --- */
+    .contact-grid{ display:grid; grid-template-columns: 1.2fr .8fr; gap:1rem }
+    @media (max-width: 900px){ .contact-grid{ grid-template-columns: 1fr } }
+
+    /* --- Footer --- */
+    footer{ padding:24px 0 60px; color:var(--muted) }
+
+    /* --- Floating WhatsApp Button --- */
+    .float-btn{
+      position:fixed; right:16px; bottom:16px; z-index:60; box-shadow: var(--shadow);
+      padding:.9rem 1.15rem; border-radius: 999px; display:flex; align-items:center; gap:.5rem; font-weight:800
+    }
+
+    /* --- Reveal on scroll --- */
+    .reveal{ opacity:0; transform: translateY(14px); transition: .6s ease }
+    .reveal.show{ opacity:1; transform: translateY(0) }
+
+    /* --- Small helpers --- */
+    .muted{ color:var(--muted) }
+    .center{ text-align:center }
+    .spacer{ height: 20px }
+  </style>
+</head>
+<body>
+
+  <!-- Header / Nav -->
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo">SS</div>
+        <div>SpeakSmart Academy</div>
+      </div>
+      <button class="burger" id="burger" aria-label="Open Menu">☰</button>
+      <nav>
+        <ul id="menu">
+          <li><a href="#home" class="active">Home</a></li>
+          <li><a href="#courses">Courses</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#book" class="btn" style="padding:.55rem .9rem">Book Class</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero container" id="home">
+    <div class="hero-inner">
+      <div class="hero-card reveal">
+        <div class="hero-badges">
+          <span class="badge">Live Interactive</span>
+          <span class="badge">1:1 & Group</span>
+          <span class="badge">Beginner → Advanced</span>
+        </div>
+        <h1>Master Spoken English with Confidence</h1>
+        <p>Highly practical speaking sessions, interview drills, business communication and accent training. Learn by doing, not cramming.</p>
+        <div style="display:flex; gap:.7rem; flex-wrap:wrap">
+          <a class="btn" href="#book">Book Your Class</a>
+          <a class="btn ghost" href="#courses">Explore Courses</a>
+        </div>
+        <div class="statbar">
+          <div class="stat"><b>4.9★</b><span class="muted">Avg. Rating</span></div>
+          <div class="stat"><b>1,200+</b><span class="muted">Students</span></div>
+          <div class="stat"><b>30–60 min</b><span class="muted">Sessions</span></div>
+        </div>
+      </div>
+      <div class="reveal" aria-hidden="true">
+        <img src="https://images.unsplash.com/photo-1584697964154-45ea61f2a0c8?q=80&w=1200&auto=format&fit=crop" alt="Student speaking in an online class" loading="lazy" style="width:100%; border-radius: var(--radius-lg); border:1px solid #21304b; box-shadow: var(--shadow)">
+      </div>
+    </div>
+
+    <div class="quotes container">
+      <div class="quote-card reveal">
+        <div id="quote" class="quote-text">“The beautiful thing about learning is nobody can take it away from you.”</div>
+        <div id="author" class="quote-author">— B.B. King</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Courses -->
+  <section id="courses">
+    <div class="container">
+      <h2>Courses</h2>
+      <p class="lead">Pick a track that fits your goals. Every class focuses on live speaking, feedback, and real-life practice.</p>
+      <div class="grid">
+        <!-- Course cards -->
+        <article class="card reveal">
+          <img src="https://images.unsplash.com/photo-1558021211-6d1403321394?q=80&w=1200&auto=format&fit=crop" alt="Beginner Spoken English" loading="lazy">
+          <div class="body">
+            <h3>Beginner Spoken English</h3>
+            <p>Build your foundation: daily conversation, vocabulary, and confidence.</p>
+            <div class="meta"><span class="chip">4 weeks</span><button class="btn" onclick="scrollToBooking('Beginner Spoken English')">Book</button></div>
+          </div>
+        </article>
+        <article class="card reveal">
+          <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?q=80&w=1200&auto=format&fit=crop" alt="Advanced Speaking Skills" loading="lazy">
+          <div class="body">
+            <h3>Advanced Speaking Skills</h3>
+            <p>Fluency drills, storytelling, debate and presentation mastery.</p>
+            <div class="meta"><span class="chip">6 weeks</span><button class="btn" onclick="scrollToBooking('Advanced Speaking Skills')">Book</button></div>
+          </div>
+        </article>
+        <article class="card reveal">
+          <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=1200&auto=format&fit=crop" alt="Interview Preparation" loading="lazy">
+          <div class="body">
+            <h3>Interview Preparation</h3>
+            <p>Mock interviews, HR questions, elevator pitch & feedback.</p>
+            <div class="meta"><span class="chip">2–3 weeks</span><button class="btn" onclick="scrollToBooking('Interview Preparation')">Book</button></div>
+          </div>
+        </article>
+        <article class="card reveal">
+          <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop" alt="Business English" loading="lazy">
+          <div class="body">
+            <h3>Business English</h3>
+            <p>Emailing, meetings, negotiations and cross‑cultural communication.</p>
+            <div class="meta"><span class="chip">5 weeks</span><button class="btn" onclick="scrollToBooking('Business English')">Book</button></div>
+          </div>
+        </article>
+        <article class="card reveal">
+          <img src="https://images.unsplash.com/photo-1523246191915-b39f43f07c7f?q=80&w=1200&auto=format&fit=crop" alt="Accent Training" loading="lazy">
+          <div class="body">
+            <h3>Accent Training</h3>
+            <p>Neutral accent practice, clarity, stress & intonation control.</p>
+            <div class="meta"><span class="chip">4 weeks</span><button class="btn" onclick="scrollToBooking('Accent Training')">Book</button></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="container about">
+      <div class="panel reveal">
+        <h2>About SpeakSmart</h2>
+        <p class="lead">We teach through conversation, feedback and practice — the fastest way to get comfortable speaking English in real life.</p>
+        <ul>
+          <li>Live, interactive sessions (1:1 and small groups)</li>
+          <li>Personalized feedback after every class</li>
+          <li>Flexible timings, recordings on request</li>
+          <li>Career-focused tracks for interviews and business</li>
+        </ul>
+      </div>
+      <div class="panel reveal">
+        <h2>What You’ll Gain</h2>
+        <p class="lead">Confidence. Clarity. Real-world communication skills.</p>
+        <ul>
+          <li>Speak clearly with the right pace and intonation</li>
+          <li>Expand vocabulary through practical topics</li>
+          <li>Handle interviews, meetings and presentations</li>
+          <li>Supportive trainer & peer practice community</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking -->
+  <section id="book">
+    <div class="container">
+      <h2>Book a Class</h2>
+      <p class="lead">Fill your details and we’ll confirm your slot on WhatsApp.</p>
+
+      <form id="bookingForm" class="reveal">
+        <div class="two">
+          <div class="field">
+            <label for="bname">Full Name</label>
+            <input id="bname" class="input" placeholder="Your name" required />
+          </div>
+          <div class="field">
+            <label for="bemail">Email</label>
+            <input id="bemail" type="email" class="input" placeholder="you@example.com" required />
+          </div>
+        </div>
+        <div class="two">
+          <div class="field">
+            <label for="bphone">Phone</label>
+            <input id="bphone" class="input" placeholder="10-digit number" pattern="[0-9]{10}" required />
+          </div>
+          <div class="field">
+            <label for="btime">Preferred Time</label>
+            <input id="btime" class="input" placeholder="e.g., 7:30 PM" required />
+          </div>
+        </div>
+        <div class="field">
+          <label for="bcourse">Course</label>
+          <select id="bcourse" class="input" required>
+            <option value="" selected disabled>Select a course</option>
+            <option>Beginner Spoken English</option>
+            <option>Advanced Speaking Skills</option>
+            <option>Interview Preparation</option>
+            <option>Business English</option>
+            <option>Accent Training</option>
+          </select>
+        </div>
+        <div class="note">By submitting, you consent to be contacted on WhatsApp for scheduling.</div>
+        <button class="btn" type="submit">Send Booking on WhatsApp</button>
+        <div class="success" id="bSuccess">✅ Sent! Check your WhatsApp chat for confirmation.</div>
+        <div class="error" id="bError">⚠️ Couldn’t send. Please try again.</div>
+      </form>
+
+      <div class="spacer"></div>
+
+      <div class="note">Want silent server-side sending (no WhatsApp app opening)? Ask your developer to connect the WhatsApp Cloud API to the <b>sendWhatsAppBooking</b> function in <code>script.js</code>. A safe fallback using wa.me links is already built in.</div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="testimonials">
+    <div class="container">
+      <h2>Student Voices</h2>
+      <p class="lead">Real words from learners who unlocked their confidence.</p>
+      <div class="twrap reveal">
+        <div class="titems" id="titems">
+          <div class="tcard">
+            <p class="tquote">“The mock interviews helped me crack my first IT job! Sessions are energetic and practical.”</p>
+            <p class="muted">— Neha, Kochi</p>
+          </div>
+          <div class="tcard">
+            <p class="tquote">“I finally speak without fear. The trainer corrected my accent gently and clearly.”</p>
+            <p class="muted">— Ajay, Bengaluru</p>
+          </div>
+          <div class="tcard">
+            <p class="tquote">“Business English course improved my emails and presentations. Clients notice the difference.”</p>
+            <p class="muted">— Anitha, Chennai</p>
+          </div>
+        </div>
+      </div>
+      <div class="tdots" id="tdots"></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <h2>FAQ</h2>
+      <div class="faq reveal">
+        <details>
+          <summary>How are classes conducted?</summary>
+          <p>Live video calls via Google Meet/Zoom. Recordings available on request.</p>
+        </details>
+        <details>
+          <summary>Do you offer 1:1 classes?</summary>
+          <p>Yes. One‑to‑one and small group batches are available with flexible timings.</p>
+        </details>
+        <details>
+          <summary>What’s the fee structure?</summary>
+          <p>Depends on the course and duration. Share your goal in the booking form to get the best plan.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container contact-grid">
+      <div class="reveal">
+        <h2>Contact Us</h2>
+        <p class="lead">Have a question? We’re quick on replies.</p>
+        <form id="contactForm">
+          <div class="field">
+            <label for="cname">Name</label>
+            <input id="cname" class="input" placeholder="Your name" required />
+          </div>
+          <div class="two">
+            <div class="field">
+              <label for="cemail">Email</label>
+              <input id="cemail" type="email" class="input" placeholder="you@example.com" required />
+            </div>
+            <div class="field">
+              <label for="cmsg">Message</label>
+              <input id="cmsg" class="input" placeholder="How can we help?" required />
+            </div>
+          </div>
+          <button class="btn" type="submit">Send Message</button>
+          <div class="success" id="cSuccess">✅ Message prepared on WhatsApp!</div>
+        </form>
+      </div>
+      <div class="reveal">
+        <h2>Find Us</h2>
+        <p class="muted">We’re based in Kerala, India. Online batches available Pan‑India & International.</p>
+        <iframe title="Map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d100000!2d76.27!3d10.02!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080d718b0b4ec5%3A0x3d54d20c24e5a8d8!2sKerala!5e0!3m2!1sen!2sin!4v1710000000000" width="100%" height="260" style="border:1px solid #21304b; border-radius:14px" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div style="margin-top:.7rem; display:flex; gap:.6rem; flex-wrap:wrap">
+          <a class="btn" href="https://wa.me/919419927293" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="btn ghost" href="#" aria-disabled="true">Instagram</a>
+          <a class="btn ghost" href="#" aria-disabled="true">Facebook</a>
+          <a class="btn ghost" href="#" aria-disabled="true">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="muted">© <span id="year"></span> SpeakSmart Academy. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <a class="btn float-btn" href="#book" aria-label="Book a class quickly">📅 Book Now</a>
+
+  <script>
+    /* ==========================
+       CONFIG
+    =========================== */
+    const CONFIG = {
+      ownerWhatsappNumber: '919419927293', // Your number with country code (India +91)
+      whatsappMode: 'wa', // 'wa' = open WhatsApp/WhatsApp Web; 'api' = POST to your backend which calls WhatsApp Cloud API
+      apiEndpoint: '/api/sendWhatsApp',   // Used only when whatsappMode === 'api'
+    };
+
+    /* ==========================
+       NAV & ACTIVE LINKS
+    =========================== */
+    const burger = document.getElementById('burger');
+    const menu = document.getElementById('menu');
+    function updateActiveLink(){
+      const sections = ['home','courses','about','contact','book'];
+      let current = 'home';
+      const y = window.scrollY + 100;
+      sections.forEach(id=>{
+        const el = document.getElementById(id);
+        if(el && el.offsetTop <= y) current = id;
+      });
+      document.querySelectorAll('nav a').forEach(a=>{
+        a.classList.toggle('active', a.getAttribute('href') === '#'+current);
+      })
+    }
+    window.addEventListener('scroll', updateActiveLink);
+
+    // Simple mobile nav
+    function setMobileNav(){
+      if(window.innerWidth <= 900){
+        burger.style.display = 'grid';
+        menu.style.display = 'none';
+        burger.onclick = ()=>{
+          const open = menu.style.display === 'grid';
+          menu.style.display = open ? 'none' : 'grid';
+          menu.style.gridTemplateColumns = '1fr';
+          menu.style.gap = '.4rem';
+          menu.style.background = '#0f1420';
+          menu.style.padding = '.7rem';
+          menu.style.border = '1px solid #21304b';
+          menu.style.borderRadius = '14px';
+        }
+      } else {
+        burger.style.display = 'none';
+        menu.style.display = 'flex';
+        burger.onclick = null;
+      }
+    }
+    window.addEventListener('resize', setMobileNav);
+
+    /* ==========================
+       HERO QUOTES SLIDER
+    =========================== */
+    const QUOTES = [
+      { t: 'The beautiful thing about learning is nobody can take it away from you.', a: 'B.B. King' },
+      { t: 'The more you practice, the more confident you become.', a: 'Unknown' },
+      { t: 'Communication works for those who work at it.', a: 'John Powell' },
+      { t: 'Small daily improvements over time lead to stunning results.', a: 'Robin Sharma' },
+      { t: 'Confidence is built one conversation at a time.', a: 'SpeakSmart' },
+    ];
+    let qi = 0;
+    const qEl = document.getElementById('quote');
+    const aEl = document.getElementById('author');
+    setInterval(()=>{
+      qi = (qi + 1) % QUOTES.length;
+      qEl.style.opacity = aEl.style.opacity = 0;
+      setTimeout(()=>{
+        qEl.textContent = '“' + QUOTES[qi].t + '”';
+        aEl.textContent = '— ' + QUOTES[qi].a;
+        qEl.style.opacity = aEl.style.opacity = 1;
+      }, 300);
+    }, 5000);
+
+    /* ==========================
+       SCROLL REVEAL
+    =========================== */
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('show'); });
+    }, { threshold: .12 });
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    /* ==========================
+       TESTIMONIALS CAROUSEL
+    =========================== */
+    const titems = document.getElementById('titems');
+    const tdots = document.getElementById('tdots');
+    const slides = titems.children.length;
+    let ti = 0; let tTimer;
+    for(let i=0;i<slides;i++){
+      const b=document.createElement('button');
+      b.addEventListener('click', ()=>{ setSlide(i); });
+      tdots.appendChild(b);
+    }
+    function setSlide(i){
+      ti = i; titems.style.transform = `translateX(-${i*100}%)`;
+      [...tdots.children].forEach((d,idx)=>d.classList.toggle('active', idx===i));
+    }
+    function autoSlide(){ tTimer = setInterval(()=> setSlide((ti+1)%slides), 5000); }
+    setSlide(0); autoSlide();
+
+    /* ==========================
+       BOOKING FORM → WHATSAPP
+    =========================== */
+    const bookingForm = document.getElementById('bookingForm');
+    const bSuccess = document.getElementById('bSuccess');
+    const bError = document.getElementById('bError');
+
+    function scrollToBooking(course){
+      document.getElementById('bcourse').value = course;
+      document.querySelector('a[href="#book"]').click();
+      document.getElementById('book').scrollIntoView({behavior:'smooth'});
+    }
+
+    function buildBookingMessage(data){
+      return `New Class Booking\n\nName: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone}\nPreferred Time: ${data.time}\nCourse: ${data.course}`;
+    }
+
+    async function sendWhatsAppBooking(data){
+      const msg = buildBookingMessage(data);
+      if(CONFIG.whatsappMode === 'api'){
+        // Server-side (silent) sending via your backend → WhatsApp Cloud API
+        try{
+          const res = await fetch(CONFIG.apiEndpoint, {
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({ to: CONFIG.ownerWhatsappNumber, message: msg })
+          });
+          if(!res.ok) throw new Error('API error');
+          bSuccess.style.display='block'; bError.style.display='none';
+        }catch(err){ bError.style.display='block'; bSuccess.style.display='none'; }
+      } else {
+        // Client-side safe fallback → opens WhatsApp / WhatsApp Web with prefilled text
+        const url = `https://wa.me/${CONFIG.ownerWhatsappNumber}?text=${encodeURIComponent(msg)}`;
+        window.open(url, '_blank');
+        bSuccess.style.display='block'; bError.style.display='none';
+      }
+    }
+
+    bookingForm.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const data = {
+        name: document.getElementById('bname').value.trim(),
+        email: document.getElementById('bemail').value.trim(),
+        phone: document.getElementById('bphone').value.trim(),
+        time: document.getElementById('btime').value.trim(),
+        course: document.getElementById('bcourse').value,
+      };
+      sendWhatsAppBooking(data);
+      bookingForm.reset();
+    });
+
+    /* ==========================
+       CONTACT FORM → PREPARE WHATSAPP
+    =========================== */
+    const contactForm = document.getElementById('contactForm');
+    const cSuccess = document.getElementById('cSuccess');
+    contactForm.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const msg = `Contact from site\n\nName: ${cname.value}\nEmail: ${cemail.value}\nMessage: ${cmsg.value}`;
+      const url = `https://wa.me/${CONFIG.ownerWhatsappNumber}?text=${encodeURIComponent(msg)}`;
+      window.open(url, '_blank');
+      cSuccess.style.display='block';
+      contactForm.reset();
+    });
+
+    /* ==========================
+       SMALL INITS
+    =========================== */
+    setMobileNav(); updateActiveLink();
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
