@@ -3,122 +3,140 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Online Spoken Courses</title>
+<title>SpeakSmart Academy</title>
 <style>
-    :root {
-        --primary: #4f46e5;
-        --secondary: #06b6d4;
-        --accent: #f97316;
-        --light: #f9fafb;
-        --dark: #1f2937;
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
     }
-    * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif;}
-    body {background-color: var(--light); color: var(--dark);}
     header {
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        background: #0078d7;
         color: white;
-        padding: 2rem 1rem;
         text-align: center;
-    }
-    header h1 {font-size: 2rem; margin-bottom: 0.5rem;}
-    header p {opacity: 0.9;}
-    nav {display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;}
-    nav a {
-        background: white; color: var(--primary);
-        padding: 0.5rem 1rem; border-radius: 20px;
-        text-decoration: none; font-weight: 600;
-        transition: 0.3s;
-    }
-    nav a:hover {background: var(--accent); color: white;}
-    .slider {
-        margin: 1.5rem auto; text-align: center; font-style: italic;
-        font-size: 1.1rem; max-width: 600px; padding: 0 1rem;
+        padding: 20px;
+        font-size: 24px;
+        font-weight: bold;
     }
     .courses {
-        display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 1rem; padding: 1rem;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+        flex-wrap: wrap;
     }
-    .course {
-        background: white; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-        padding: 1rem; text-align: center;
-        transition: transform 0.3s;
+    .course-card {
+        background: #f5f5f5;
+        padding: 10px;
+        border-radius: 10px;
+        width: 300px;
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
-    .course:hover {transform: translateY(-5px);}
-    .course h3 {color: var(--primary); margin-bottom: 0.5rem;}
-    .course p {font-size: 0.9rem; margin-bottom: 1rem;}
-    .course button {
-        background: var(--secondary); color: white; border: none; padding: 0.5rem 1rem;
-        border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.3s;
+    .course-card img {
+        width: 100%;
+        border-radius: 10px;
     }
-    .course button:hover {background: var(--accent);}
-    footer {
-        background: var(--dark); color: white; padding: 1rem; text-align: center;
-        font-size: 0.9rem; margin-top: 2rem;
+    form {
+        background: #f0f0f0;
+        padding: 20px;
+        margin: 20px auto;
+        max-width: 400px;
+        border-radius: 10px;
+    }
+    input, select, button {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+    button {
+        background: #0078d7;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+    }
+    button:hover {
+        background: #005bb5;
+    }
+    h2 {
+        text-align: center;
+        color: #333;
     }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+    (function(){
+        emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS Public Key
+    })();
+
+    function sendEmail(event){
+        event.preventDefault();
+        emailjs.sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", event.target)
+        .then(function() {
+            alert("Message sent successfully!");
+            event.target.reset();
+        }, function(error) {
+            alert("Failed to send message. Please try again.");
+            console.log("Error:", error);
+        });
+    }
+
+    function sendWhatsApp(event){
+        event.preventDefault();
+        let name = document.getElementById("bookName").value;
+        let course = document.getElementById("bookCourse").value;
+        let date = document.getElementById("bookDate").value;
+        let phoneNumber = "919419927293"; // WhatsApp number without +
+        let message = `Hello, my name is ${name}. I want to book the course "${course}" on ${date}.`;
+        window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, "_blank");
+    }
+</script>
 </head>
 <body>
 
-<header>
-    <h1>Master Spoken English</h1>
-    <p>Learn anywhere, anytime – Interactive online classes</p>
-    <nav>
-        <a href="#courses">Courses</a>
-        <a href="#contact">Contact</a>
-    </nav>
-</header>
+<header>SpeakSmart Academy</header>
 
-<div class="slider" id="quoteSlider">"Unlock your voice – speak with confidence."</div>
-
-<section id="courses" class="courses">
-    <div class="course">
+<section class="courses">
+    <div class="course-card">
+        <img src="https://via.placeholder.com/300x200?text=Beginner+English" alt="Beginner English">
         <h3>Beginner English</h3>
-        <p>Perfect for those starting from scratch with simple grammar and vocabulary.</p>
-        <button onclick="bookCourse('Beginner English')">Book Now</button>
+        <p>Start your journey with basic English speaking skills.</p>
     </div>
-    <div class="course">
+    <div class="course-card">
+        <img src="https://via.placeholder.com/300x200?text=Intermediate+English" alt="Intermediate English">
         <h3>Intermediate English</h3>
-        <p>Improve fluency and expand your vocabulary for daily conversations.</p>
-        <button onclick="bookCourse('Intermediate English')">Book Now</button>
+        <p>Improve your fluency and build confidence.</p>
     </div>
-    <div class="course">
+    <div class="course-card">
+        <img src="https://via.placeholder.com/300x200?text=Advanced+Communication" alt="Advanced Communication">
         <h3>Advanced Communication</h3>
-        <p>Master public speaking, presentations, and advanced grammar.</p>
-        <button onclick="bookCourse('Advanced Communication')">Book Now</button>
+        <p>Master the art of professional and social communication.</p>
     </div>
 </section>
 
-<section id="contact" style="padding:1rem; text-align:center;">
-    <h2>Contact Us</h2>
-    <p>Have questions or want to join? Message us directly on WhatsApp.</p>
-    <button onclick="window.open('https://wa.me/919419927293','_blank')" 
-        style="background:var(--accent); color:white; border:none; padding:0.7rem 1.2rem; border-radius:8px; margin-top:0.5rem; font-weight:600;">
-        Chat on WhatsApp
-    </button>
-</section>
+<h2>Contact Us</h2>
+<form onsubmit="sendEmail(event)">
+    <input type="text" name="name" placeholder="Enter your name" required>
+    <input type="email" name="email" placeholder="Enter your email" required>
+    <input type="text" name="mobile" placeholder="Enter your mobile number" required>
+    <button type="submit">Send Message</button>
+</form>
 
-<footer>
-    &copy; 2025 Online Spoken Courses | All rights reserved.
-</footer>
-
-<script>
-const quotes = [
-    '"Unlock your voice – speak with confidence."',
-    '"Fluency is a skill – practice makes perfect."',
-    '"Every expert was once a beginner."',
-    '"Learn English, open new doors."'
-];
-let i = 0;
-setInterval(() => {
-    document.getElementById('quoteSlider').textContent = quotes[i];
-    i = (i + 1) % quotes.length;
-}, 3000);
-
-function bookCourse(courseName) {
-    const url = `https://wa.me/919419927293?text=I want to book the ${encodeURIComponent(courseName)} course.`;
-    window.open(url, '_blank');
-}
-</script>
+<h2>Book Classes</h2>
+<form onsubmit="sendWhatsApp(event)">
+    <input type="text" id="bookName" placeholder="Enter your name" required>
+    <select id="bookCourse" required>
+        <option value="">Select Course</option>
+        <option>Beginner English</option>
+        <option>Intermediate English</option>
+        <option>Advanced Communication</option>
+    </select>
+    <input type="date" id="bookDate" required>
+    <button type="submit">Book Now via WhatsApp</button>
+</form>
 
 </body>
 </html>
