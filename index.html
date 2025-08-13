@@ -1,142 +1,516 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SpeakSmart Academy</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-    }
-    header {
-        background: #0078d7;
-        color: white;
-        text-align: center;
-        padding: 20px;
-        font-size: 24px;
-        font-weight: bold;
-    }
-    .courses {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        padding: 20px;
-        flex-wrap: wrap;
-    }
-    .course-card {
-        background: #f5f5f5;
-        padding: 10px;
-        border-radius: 10px;
-        width: 300px;
-        text-align: center;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    .course-card img {
-        width: 100%;
-        border-radius: 10px;
-    }
-    form {
-        background: #f0f0f0;
-        padding: 20px;
-        margin: 20px auto;
-        max-width: 400px;
-        border-radius: 10px;
-    }
-    input, select, button {
-        width: 100%;
-        padding: 10px;
-        margin: 8px 0;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-    }
-    button {
-        background: #0078d7;
-        color: white;
-        font-size: 16px;
-        cursor: pointer;
-        border: none;
-    }
-    button:hover {
-        background: #005bb5;
-    }
-    h2 {
-        text-align: center;
-        color: #333;
-    }
-</style>
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-<script>
-    (function(){
-        emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS Public Key
-    })();
-
-    function sendEmail(event){
-        event.preventDefault();
-        emailjs.sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", event.target)
-        .then(function() {
-            alert("Message sent successfully!");
-            event.target.reset();
-        }, function(error) {
-            alert("Failed to send message. Please try again.");
-            console.log("Error:", error);
-        });
-    }
-
-    function sendWhatsApp(event){
-        event.preventDefault();
-        let name = document.getElementById("bookName").value;
-        let course = document.getElementById("bookCourse").value;
-        let date = document.getElementById("bookDate").value;
-        let phoneNumber = "919419927293"; // WhatsApp number without +
-        let message = `Hello, my name is ${name}. I want to book the course "${course}" on ${date}.`;
-        window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, "_blank");
-    }
-</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpeakSmart - Online Spoken English Classes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb; /* Updated blue */
+            --secondary: #0ea5e9; /* Sky blue */
+            --accent: #f59e0b; /* Amber */
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --success: #10b981;
+        }
+        * {
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: var(--light); 
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            position: relative;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: var(--accent);
+        }
+        header p {
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+        nav a {
+            background: rgba(255,255,255,0.2); 
+            color: white;
+            padding: 0.5rem 1.5rem; 
+            border-radius: 20px;
+            text-decoration: none; 
+            font-weight: 600;
+            transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        nav a:hover {
+            background: white; 
+            color: var(--primary);
+        }
+        .hero {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            text-align: center;
+        }
+        .hero h2 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        .slider {
+            margin: 1.5rem auto; 
+            text-align: center; 
+            font-style: italic;
+            font-size: 1.1rem; 
+            max-width: 600px; 
+            padding: 0 1rem;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            padding: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .feature {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+        .feature i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        .feature h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        .courses {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            padding: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .course {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .course:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .course h3 {
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+        }
+        .course .price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        .course p {
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            color: #64748b;
+        }
+        .course button {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+            width: 100%;
+        }
+        .course button:hover {
+            background: var(--accent);
+        }
+        .testimonials {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 1.5rem;
+        }
+        .testimonials h2 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 2rem;
+        }
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .testimonial {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .testimonial .quote {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        .testimonial .author {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        .contact {
+            padding: 2rem 1rem;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(14, 165, 233, 0.05));
+        }
+        .contact h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        .contact p {
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+        }
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .whatsapp {
+            background: #25D366;
+            color: white;
+        }
+        .email {
+            background: var(--dark);
+            color: white;
+        }
+        .call {
+            background: var(--accent);
+            color: white;
+        }
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        footer {
+            background: var(--dark); 
+            color: white; 
+            padding: 2rem 1rem; 
+            text-align: center;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: left;
+        }
+        .footer-section h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        .footer-section p, .footer-section a {
+            opacity: 0.8;
+            color: white;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-decoration: none;
+        }
+        .footer-section a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .social-links a {
+            background: rgba(255,255,255,0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 1.5rem;
+            }
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .social-links {
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<header>SpeakSmart Academy</header>
+<header>
+    <div class="logo">
+        <i class="fas fa-comment-dots"></i>
+        <span>SpeakSmart</span>
+    </div>
+    <p>Transform your English speaking skills with our interactive online classes</p>
+    <nav>
+        <a href="#features"><i class="fas fa-star"></i> Why Us</a>
+        <a href="#courses"><i class="fas fa-book"></i> Courses</a>
+        <a href="#testimonials"><i class="fas fa-quote-left"></i> Testimonials</a>
+        <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+    </nav>
+</header>
 
-<section class="courses">
-    <div class="course-card">
-        <img src="https://via.placeholder.com/300x200?text=Beginner+English" alt="Beginner English">
-        <h3>Beginner English</h3>
-        <p>Start your journey with basic English speaking skills.</p>
+<div class="hero">
+    <h2>Unlock Your English Potential with SpeakSmart</h2>
+    <p>Join our expert-led online classes and gain the confidence to speak English fluently in any situation - whether for work, travel, or personal growth.</p>
+</div>
+
+<div class="slider" id="quoteSlider">
+    "The limits of my language mean the limits of my world. - Ludwig Wittgenstein"
+</div>
+
+<section id="features" class="features">
+    <div class="feature">
+        <i class="fas fa-chalkboard-teacher"></i>
+        <h3>Expert Instructors</h3>
+        <p>Learn from certified English teachers with years of experience in online instruction.</p>
     </div>
-    <div class="course-card">
-        <img src="https://via.placeholder.com/300x200?text=Intermediate+English" alt="Intermediate English">
-        <h3>Intermediate English</h3>
-        <p>Improve your fluency and build confidence.</p>
+    <div class="feature">
+        <i class="fas fa-users"></i>
+        <h3>Small Class Sizes</h3>
+        <p>Maximum 6 students per class for personalized attention and more speaking time.</p>
     </div>
-    <div class="course-card">
-        <img src="https://via.placeholder.com/300x200?text=Advanced+Communication" alt="Advanced Communication">
-        <h3>Advanced Communication</h3>
-        <p>Master the art of professional and social communication.</p>
+    <div class="feature">
+        <i class="fas fa-calendar-alt"></i>
+        <h3>Flexible Scheduling</h3>
+        <p>Morning, afternoon, and evening classes to fit your busy schedule.</p>
+    </div>
+    <div class="feature">
+        <i class="fas fa-certificate"></i>
+        <h3>Progress Certification</h3>
+        <p>Receive a certificate upon course completion to showcase your achievement.</p>
     </div>
 </section>
 
-<h2>Contact Us</h2>
-<form onsubmit="sendEmail(event)">
-    <input type="text" name="name" placeholder="Enter your name" required>
-    <input type="email" name="email" placeholder="Enter your email" required>
-    <input type="text" name="mobile" placeholder="Enter your mobile number" required>
-    <button type="submit">Send Message</button>
-</form>
+<section id="courses" class="courses">
+    <div class="course">
+        <h3>Foundation English</h3>
+        <div class="price">₹1,999/month</div>
+        <p>Build your English foundation with essential grammar, vocabulary, and pronunciation.</p>
+        <button onclick="bookCourse('Foundation English')">
+            <i class="fas fa-bookmark"></i> Enroll Now
+        </button>
+    </div>
+    <div class="course">
+        <h3>Conversational Fluency</h3>
+        <div class="price">₹2,499/month</div>
+        <p>Develop natural speaking skills for daily conversations and social interactions.</p>
+        <button onclick="bookCourse('Conversational Fluency')">
+            <i class="fas fa-bookmark"></i> Enroll Now
+        </button>
+    </div>
+    <div class="course">
+        <h3>Business English</h3>
+        <div class="price">₹2,999/month</div>
+        <p>Master professional communication for meetings, presentations, and emails.</p>
+        <button onclick="bookCourse('Business English')">
+            <i class="fas fa-bookmark"></i> Enroll Now
+        </button>
+    </div>
+    <div class="course">
+        <h3>IELTS/TOEFL Prep</h3>
+        <div class="price">₹3,499/month</div>
+        <p>Comprehensive preparation for English proficiency tests with mock exams.</p>
+        <button onclick="bookCourse('IELTS/TOEFL Prep')">
+            <i class="fas fa-bookmark"></i> Enroll Now
+        </button>
+    </div>
+</section>
 
-<h2>Book Classes</h2>
-<form onsubmit="sendWhatsApp(event)">
-    <input type="text" id="bookName" placeholder="Enter your name" required>
-    <select id="bookCourse" required>
-        <option value="">Select Course</option>
-        <option>Beginner English</option>
-        <option>Intermediate English</option>
-        <option>Advanced Communication</option>
-    </select>
-    <input type="date" id="bookDate" required>
-    <button type="submit">Book Now via WhatsApp</button>
-</form>
+<section id="testimonials" class="testimonials">
+    <h2>What Our Students Say</h2>
+    <div class="testimonial-grid">
+        <div class="testimonial">
+            <div class="quote">
+                "SpeakSmart's classes transformed my confidence. After just 3 months, I could participate in work meetings without hesitation!"
+            </div>
+            <div class="author">- Priya K., Software Engineer</div>
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+        </div>
+        <div class="testimonial">
+            <div class="quote">
+                "The small class size makes such a difference. I get to practice speaking much more than in other schools I tried."
+            </div>
+            <div class="author">- Rohan M., College Student</div>
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+        </div>
+        <div class="testimonial">
+            <div class="quote">
+                "My instructor is incredibly patient and provides personalized feedback that has helped me improve my pronunciation significantly."
+            </div>
+            <div class="author">- Anjali S., Homemaker</div>
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="contact">
+    <h2>Ready to Start Your English Journey?</h2>
+    <p>Contact us today to schedule a free trial class or ask any questions about our courses.</p>
+    <div class="contact-buttons">
+        <a href="https://wa.me/919419927293" class="contact-btn whatsapp" target="_blank">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+        </a>
+        <a href="mailto:contact@speaksmarter.com" class="contact-btn email">
+            <i class="fas fa-envelope"></i> Email Us
+        </a>
+        <a href="tel:+919419927293" class="contact-btn call">
+            <i class="fas fa-phone"></i> Call Now
+        </a>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>About SpeakSmart</h3>
+            <p>We're dedicated to helping students achieve English fluency through interactive, student-centered online classes.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h3>Quick Links</h3>
+            <a href="#features">Why Choose Us</a>
+            <a href="#courses">Our Courses</a>
+            <a href="#testimonials">Success Stories</a>
+            <a href="#contact">Contact Us</a>
+        </div>
+        <div class="footer-section">
+            <h3>Contact Info</h3>
+            <a href="tel:+919419927293"><i class="fas fa-phone"></i> +91 94199 27293</a>
+            <a href="mailto:contact@speaksmarter.com"><i class="fas fa-envelope"></i> contact@speaksmarter.com</a>
+            <p><i class="fas fa-clock"></i> Mon-Sat: 9AM - 8PM</p>
+        </div>
+    </div>
+    <div class="copyright">
+        &copy; 2025 SpeakSmart Online English Academy. All rights reserved.
+    </div>
+</footer>
+
+<script>
+    const quotes = [
+        '"The limits of my language mean the limits of my world. - Ludwig Wittgenstein"',
+        '"Learning another language is not only learning different words for the same things, but learning another way to think about things. - Flora Lewis"',
+        '"Language is the road map of a culture. It tells you where its people come from and where they are going. - Rita Mae Brown"',
+        '"One language sets you in a corridor for life. Two languages open every door along the way. - Frank Smith"',
+        '"To have another language is to possess a second soul. - Charlemagne"'
+    ];
+    let i = 0;
+    setInterval(() => {
+        document.getElementById('quoteSlider').textContent = quotes[i];
+        i = (i + 1) % quotes.length;
+    }, 4000);
+
+    function bookCourse(courseName) {
+        const url = `https://wa.me/919419927293?text=I%20would%20like%20to%20enroll%20in%20the%20${encodeURIComponent(courseName)}%20course%20at%20SpeakSmart.%20Please%20share%20more%20details.`;
+        window.open(url, '_blank');
+    }
+</script>
 
 </body>
 </html>
