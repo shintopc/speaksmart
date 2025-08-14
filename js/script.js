@@ -25,24 +25,33 @@ document.querySelectorAll('nav a').forEach(link => {
     });
 });
 
-// Form submission
-document.getElementById('enquiryForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+// Promo Slider
+const promoSlides = document.querySelectorAll('.promo-slider .slide');
+const promoDots = document.querySelectorAll('.promo-slider .dot');
+let currentPromoSlide = 0;
+
+function showPromoSlide(index) {
+    promoSlides.forEach(slide => slide.classList.remove('active'));
+    promoDots.forEach(dot => dot.classList.remove('active'));
     
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const phone = document.getElementById('phone').value;
-    const message = document.getElementById('message').value;
-    
-    const whatsappUrl = `https://wa.me/919419927293?text=New%20Enquiry%20from%20Website%0A%0AName:%20${encodeURIComponent(name)}%0AEmail:%20${encodeURIComponent(email)}%0APhone:%20${encodeURIComponent(phone)}%0AMessage:%20${encodeURIComponent(message)}`;
-    
-    window.open(whatsappUrl, '_blank');
-    
-    // Reset form
-    this.reset();
-    
-    // Show success message
-    alert('Thank you! Your message has been sent. We will contact you shortly.');
+    promoSlides[index].classList.add('active');
+    promoDots[index].classList.add('active');
+    currentPromoSlide = index;
+}
+
+function nextPromoSlide() {
+    currentPromoSlide = (currentPromoSlide + 1) % promoSlides.length;
+    showPromoSlide(currentPromoSlide);
+}
+
+// Auto slide change every 5 seconds
+setInterval(nextPromoSlide, 5000);
+
+// Dot navigation for promo slider
+promoDots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+        showPromoSlide(index);
+    });
 });
 
 // Smooth scrolling for anchor links
@@ -62,31 +71,38 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Quote Slider
-const slides = document.querySelectorAll('.slide');
-const dots = document.querySelectorAll('.dot');
-let currentSlide = 0;
-
-function showSlide(index) {
-    slides.forEach(slide => slide.classList.remove('active'));
-    dots.forEach(dot => dot.classList.remove('active'));
+// EmailJS Form Submission
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
     
-    slides[index].classList.add('active');
-    dots[index].classList.add('active');
-    currentSlide = index;
-}
-
-function nextSlide() {
-    currentSlide = (currentSlide + 1) % slides.length;
-    showSlide(currentSlide);
-}
-
-// Auto slide change every 5 seconds
-setInterval(nextSlide, 5000);
-
-// Dot navigation
-dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-        showSlide(index);
-    });
+    const submitBtn = document.getElementById('submitBtn');
+    const formSuccess = document.getElementById('formSuccess');
+    
+    // Change button text to show loading state
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    submitBtn.disabled = true;
+    
+    // Send form data via EmailJS
+    emailjs.sendForm('YOUR_EMAILJS_SERVICE_ID', 'YOUR_EMAILJS_TEMPLATE_ID', this)
+        .then(() => {
+            // Show success message
+            formSuccess.style.display = 'block';
+            this.reset();
+            
+            // Reset button
+            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+            submitBtn.disabled = false;
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                formSuccess.style.display = 'none';
+            }, 5000);
+        }, (error) => {
+            alert('Failed to send message. Please try again later.');
+            console.error('EmailJS Error:', error);
+            
+            // Reset button
+            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+            submitBtn.disabled = false;
+        });
 });
