@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+        (function() {
+            emailjs.init("YOUR_EMAILJS_USER_ID"); // Replace with your EmailJS user ID
+        })();
+    </script>
 </head>
 <body>
     <!-- Header -->
@@ -25,10 +31,9 @@
             <nav id="mainNav">
                 <a href="#features"><i class="fas fa-star"></i> Why Us</a>
                 <a href="#courses"><i class="fas fa-book"></i> Courses</a>
-                <a href="#quote-slider"><i class="fas fa-quote-left"></i> Quotes</a>
                 <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
-                <a href="https://wa.me/919419927293" target="_blank" class="btn-primary" style="margin-top: 1rem;">
-                    <i class="fab fa-whatsapp"></i> Chat Now
+                <a href="#courses" class="btn-primary" style="margin-top: 1rem;">
+                    <i class="fas fa-book-open"></i> View Courses
                 </a>
             </nav>
         </div>
@@ -42,6 +47,44 @@
     
     <div class="overlay" id="overlay"></div>
     
+    <!-- Promo Slider -->
+    <section class="promo-slider">
+        <div class="slider-container">
+            <div class="slide active">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Group learning">
+                <div class="slide-content">
+                    <h2>Join Our Interactive Classes</h2>
+                    <p>Learn English with expert teachers in small groups</p>
+                    <a href="#courses" class="btn btn-primary">View Courses</a>
+                </div>
+            </div>
+            
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Speaking practice">
+                <div class="slide-content">
+                    <h2>Speak With Confidence</h2>
+                    <p>Gain fluency through real conversation practice</p>
+                    <a href="#courses" class="btn btn-primary">Start Learning</a>
+                </div>
+            </div>
+            
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Online learning">
+                <div class="slide-content">
+                    <h2>Learn From Anywhere</h2>
+                    <p>Flexible online classes that fit your schedule</p>
+                    <a href="#contact" class="btn btn-primary">Get Started</a>
+                </div>
+            </div>
+            
+            <div class="slider-dots">
+                <div class="dot active" data-slide="0"></div>
+                <div class="dot" data-slide="1"></div>
+                <div class="dot" data-slide="2"></div>
+            </div>
+        </div>
+    </section>
+    
     <!-- Hero Section -->
     <section class="hero">
         <h1>Speak English Confidently in Just 8 Weeks</h1>
@@ -51,7 +94,7 @@
             <a href="#courses" class="btn btn-primary">
                 <i class="fas fa-book-open"></i> View Courses
             </a>
-            <a href="https://wa.me/919419927293" class="btn btn-outline" target="_blank">
+            <a href="#contact" class="btn btn-outline">
                 <i class="fas fa-comment-dots"></i> Free Trial Class
             </a>
         </div>
@@ -120,7 +163,7 @@
                             <span><i class="fas fa-user-graduate"></i> Beginner</span>
                         </div>
                         
-                        <a href="https://wa.me/919419927293?text=I'm interested in Basic English Foundation course" class="btn btn-primary btn-block" target="_blank">
+                        <a href="#contact" class="btn btn-primary btn-block">
                             Enroll Now
                         </a>
                     </div>
@@ -140,7 +183,7 @@
                             <span><i class="fas fa-user-graduate"></i> Intermediate</span>
                         </div>
                         
-                        <a href="https://wa.me/919419927293?text=I'm interested in Conversation Mastery course" class="btn btn-primary btn-block" target="_blank">
+                        <a href="#contact" class="btn btn-primary btn-block">
                             Enroll Now
                         </a>
                     </div>
@@ -160,7 +203,7 @@
                             <span><i class="fas fa-user-graduate"></i> Advanced</span>
                         </div>
                         
-                        <a href="https://wa.me/919419927293?text=I'm interested in Business English course" class="btn btn-primary btn-block" target="_blank">
+                        <a href="#contact" class="btn btn-primary btn-block">
                             Enroll Now
                         </a>
                     </div>
@@ -169,47 +212,11 @@
         </div>
     </section>
     
-    <!-- Quote Slider Section -->
-    <section class="quote-slider" id="quote-slider">
-        <div class="slider-container">
-            <div class="slide active">
-                <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Inspirational quote" class="slide-img">
-                <p class="slide-quote">"The limits of my language mean the limits of my world."</p>
-                <p class="slide-author">- Ludwig Wittgenstein</p>
-            </div>
-            
-            <div class="slide">
-                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Inspirational quote" class="slide-img">
-                <p class="slide-quote">"Learning another language is not only learning different words for the same things, but learning another way to think about things."</p>
-                <p class="slide-author">- Flora Lewis</p>
-            </div>
-            
-            <div class="slide">
-                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Inspirational quote" class="slide-img">
-                <p class="slide-quote">"One language sets you in a corridor for life. Two languages open every door along the way."</p>
-                <p class="slide-author">- Frank Smith</p>
-            </div>
-            
-            <div class="slide">
-                <img src="https://images.unsplash.com/photo-1554151228-14d9def656e4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Inspirational quote" class="slide-img">
-                <p class="slide-quote">"To have another language is to possess a second soul."</p>
-                <p class="slide-author">- Charlemagne</p>
-            </div>
-            
-            <div class="slider-dots">
-                <div class="dot active" data-slide="0"></div>
-                <div class="dot" data-slide="1"></div>
-                <div class="dot" data-slide="2"></div>
-                <div class="dot" data-slide="3"></div>
-            </div>
-        </div>
-    </section>
-    
     <!-- CTA Section -->
     <section class="cta">
         <h2>Ready to Transform Your English?</h2>
         <p>Join hundreds of students who have improved their English speaking skills with our proven methods.</p>
-        <a href="https://wa.me/919419927293" class="btn btn-light" target="_blank">
+        <a href="#contact" class="btn btn-light">
             <i class="fas fa-calendar-check"></i> Book Free Trial
         </a>
     </section>
@@ -218,67 +225,86 @@
     <section class="contact" id="contact">
         <div class="section-title">
             <h2>Get In Touch</h2>
+            <p>Have questions or ready to enroll? Send us a message and we'll get back to you within 24 hours.</p>
         </div>
         
-        <div class="contact-grid">
+        <div class="contact-container">
+            <div class="contact-form">
+                <form id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="course">Course Interested In</label>
+                        <select id="course" name="course" class="form-control">
+                            <option value="">Select a course</option>
+                            <option value="Basic English Foundation">Basic English Foundation</option>
+                            <option value="Conversation Mastery">Conversation Mastery</option>
+                            <option value="Business English">Business English</option>
+                            <option value="Not sure">Not sure - need advice</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" name="message" class="form-control" rows="4" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" id="submitBtn">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                    
+                    <div id="formSuccess" class="form-success">
+                        <i class="fas fa-check-circle"></i>
+                        <p>Thank you! Your message has been sent successfully.</p>
+                    </div>
+                </form>
+            </div>
+            
             <div class="contact-info">
-                <div class="contact-method">
-                    <div class="contact-icon">
+                <div class="info-card">
+                    <div class="info-icon">
                         <i class="fas fa-phone-alt"></i>
                     </div>
-                    <div class="contact-details">
+                    <div class="info-content">
                         <h3>Call Us</h3>
                         <a href="tel:+919419927293">+91 94199 27293</a>
                     </div>
                 </div>
                 
-                <div class="contact-method">
-                    <div class="contact-icon">
-                        <i class="fab fa-whatsapp"></i>
-                    </div>
-                    <div class="contact-details">
-                        <h3>WhatsApp</h3>
-                        <a href="https://wa.me/919419927293" target="_blank">Chat Now</a>
-                    </div>
-                </div>
-                
-                <div class="contact-method">
-                    <div class="contact-icon">
+                <div class="info-card">
+                    <div class="info-icon">
                         <i class="fas fa-envelope"></i>
                     </div>
-                    <div class="contact-details">
+                    <div class="info-content">
                         <h3>Email Us</h3>
                         <a href="mailto:contact@speaksmarter.com">contact@speaksmarter.com</a>
                     </div>
                 </div>
-            </div>
-            
-            <div class="contact-form">
-                <form id="enquiryForm">
-                    <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" id="name" class="form-control" required>
+                
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-clock"></i>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" class="form-control" required>
+                    <div class="info-content">
+                        <h3>Working Hours</h3>
+                        <p>Monday - Saturday: 9AM - 8PM</p>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" class="form-control" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="message">Your Message</label>
-                        <textarea id="message" class="form-control" required></textarea>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">
-                        <i class="fas fa-paper-plane"></i> Send Message
-                    </button>
-                </form>
+                </div>
             </div>
         </div>
     </section>
