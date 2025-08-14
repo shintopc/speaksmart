@@ -106,3 +106,32 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
             submitBtn.disabled = false;
         });
 });
+
+// Features Slider
+const featureSlides = document.querySelectorAll('.feature-slide');
+const featureDots = document.querySelectorAll('.features-slider .dot');
+let currentFeatureSlide = 0;
+
+function showFeatureSlide(index) {
+    featureSlides.forEach(slide => slide.classList.remove('active'));
+    featureDots.forEach(dot => dot.classList.remove('active'));
+    
+    featureSlides[index].classList.add('active');
+    featureDots[index].classList.add('active');
+    currentFeatureSlide = index;
+}
+
+function nextFeatureSlide() {
+    currentFeatureSlide = (currentFeatureSlide + 1) % featureSlides.length;
+    showFeatureSlide(currentFeatureSlide);
+}
+
+// Auto slide change every 6 seconds
+setInterval(nextFeatureSlide, 6000);
+
+// Dot navigation for features slider
+featureDots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+        showFeatureSlide(index);
+    });
+});
