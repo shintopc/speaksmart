@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpeakSmart - Online Spoken English Classes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-comment-dots"></i></div>
+                <span>SpeakSmart</span>
+            </div>
+            <p class="tagline">Transform your English speaking skills with our interactive online classes</p>
+            
+            <button class="mobile-menu-btn" id="menuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav id="mainNav">
+                <a href="#features"><i class="fas fa-star"></i> Why Us</a>
+                <a href="#courses"><i class="fas fa-book"></i> Courses</a>
+                <a href="#quote-slider"><i class="fas fa-quote-left"></i> Quotes</a>
+                <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+                <a href="https://wa.me/919419927293" target="_blank" class="btn-primary" style="margin-top: 1rem;">
+                    <i class="fab fa-whatsapp"></i> Chat Now
+                </a>
+            </nav>
+        </div>
+        
+        <div class="header-bg">
+            <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+                <path fill="rgba(255,255,255,0.1)" d="M0,250 C150,400 350,100 500,250 L500,500 L0,500 Z"></path>
+            </svg>
+        </div>
+    </header>
+    
+    <div class="overlay" id="overlay"></div>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Speak English Confidently in Just 8 Weeks</h1>
+        <p>Join our live online classes and transform your communication skills with expert teachers and personalized feedback.</p>
+        
+        <div class="cta-buttons">
+            <a href="#courses" class="btn btn-primary">
+                <i class="fas fa-book-open"></i> View Courses
+            </a>
+            <a href="https://wa.me/919419927293" class="btn btn-outline" target="_blank">
+                <i class="fas fa-comment-dots"></i> Free Trial Class
+            </a>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="section-title">
+            <h2>Why Choose SpeakSmart</h2>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <h3>Expert Teachers</h3>
+                <p>Learn from certified English instructors with 5+ years of teaching experience.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Small Groups</h3>
+                <p>Maximum 6 students per class for personalized attention and more speaking time.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-laptop"></i>
+                </div>
+                <h3>Interactive Classes</h3>
+                <p>Engaging activities, role-plays, and real-life conversation practice.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-certificate"></i>
+                </div>
+                <h3>Progress Certificate</h3>
+                <p>Get recognized for your achievement with our course completion certificate.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Courses Section -->
+    <section class="courses" id="courses">
+        <div class="courses-container">
+            <div class="section-title">
+                <h2>Our Popular Courses</h2>
+            </div>
+            
+            <div class="course-cards">
+                <div class="course-card">
+                    <div class="course-img" style="background: #4895ef;">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <div class="course-content">
+                        <h3>Basic English Foundation</h3>
+                        <div class="course-price">₹1,999/month</div>
+                        <p>Build your English foundation with essential grammar, vocabulary, and pronunciation.</p>
+                        
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 8 Weeks</span>
+                            <span><i class="fas fa-user-graduate"></i> Beginner</span>
+                        </div>
+                        
+                        <a href="https://wa.me/919419927293?text=I'm interested in Basic English Foundation course" class="btn btn-primary btn-block" target="_blank">
+                            Enroll Now
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="course-card">
+                    <div class="course-img" style="background: #3f37c9;">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="course-content">
+                        <h3>Conversation Mastery</h3>
+                        <div class="course-price">₹2,499/month</div>
+                        <p>Develop natural speaking skills for daily conversations and social interactions.</p>
+                        
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 12 Weeks</span>
+                            <span><i class="fas fa-user-graduate"></i> Intermediate</span>
+                        </div>
+                        
+                        <a href="https://wa.me/919419927293?text=I'm interested in Conversation Mastery course" class="btn btn-primary btn-block" target="_blank">
+                            Enroll Now
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="course-card">
+                    <div class="course-img" style="background: #4cc9f0;">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="course-content">
+                        <h3>Business English</h3>
+                        <div class="course-price">₹2,999/month</div>
+                        <p>Master professional communication for meetings, presentations, and emails.</p>
+                        
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 10 Weeks</span>
+                            <span><i class="fas fa-user-graduate"></i> Advanced</span>
+                        </div>
+                        
+                        <a href="https://wa.me/919419927293?text=I'm interested in Business English course" class="btn btn-primary btn-block" target="_blank">
+                            Enroll Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Quote Slider Section -->
+    <section class="quote-slider" id="quote-slider">
+        <div class="slider-container">
+            <div class="slide active">
+                <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Inspirational quote" class="slide-img">
+                <p class="slide-quote">"The limits of my language mean the limits of my world."</p>
+                <p class="slide-author">- Ludwig Wittgenstein</p>
+            </div>
+            
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Inspirational quote" class="slide-img">
+                <p class="slide-quote">"Learning another language is not only learning different words for the same things, but learning another way to think about things."</p>
+                <p class="slide-author">- Flora Lewis</p>
+            </div>
+            
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Inspirational quote" class="slide-img">
+                <p class="slide-quote">"One language sets you in a corridor for life. Two languages open every door along the way."</p>
+                <p class="slide-author">- Frank Smith</p>
+            </div>
+            
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1554151228-14d9def656e4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Inspirational quote" class="slide-img">
+                <p class="slide-quote">"To have another language is to possess a second soul."</p>
+                <p class="slide-author">- Charlemagne</p>
+            </div>
+            
+            <div class="slider-dots">
+                <div class="dot active" data-slide="0"></div>
+                <div class="dot" data-slide="1"></div>
+                <div class="dot" data-slide="2"></div>
+                <div class="dot" data-slide="3"></div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta">
+        <h2>Ready to Transform Your English?</h2>
+        <p>Join hundreds of students who have improved their English speaking skills with our proven methods.</p>
+        <a href="https://wa.me/919419927293" class="btn btn-light" target="_blank">
+            <i class="fas fa-calendar-check"></i> Book Free Trial
+        </a>
+    </section>
+    
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="section-title">
+            <h2>Get In Touch</h2>
+        </div>
+        
+        <div class="contact-grid">
+            <div class="contact-info">
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Call Us</h3>
+                        <a href="tel:+919419927293">+91 94199 27293</a>
+                    </div>
+                </div>
+                
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>WhatsApp</h3>
+                        <a href="https://wa.me/919419927293" target="_blank">Chat Now</a>
+                    </div>
+                </div>
+                
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Email Us</h3>
+                        <a href="mailto:contact@speaksmarter.com">contact@speaksmarter.com</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <form id="enquiryForm">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" class="form-control" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">
+            <div class="logo-icon"><i class="fas fa-comment-dots"></i></div>
+            <span>SpeakSmart</span>
+        </div>
+        <p>Transform your English speaking skills with our interactive online classes</p>
+        
+        <div class="footer-social">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2025 SpeakSmart Online English Academy. All rights reserved.
+        </div>
+    </footer>
+    
+    <script src="js/script.js"></script>
+</body>
+</html>
