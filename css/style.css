@@ -655,18 +655,34 @@ footer {
     text-align: center;
 }
 
+/* Footer Logo Styles */
 .footer-logo {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 10px;
+    margin-bottom: 1rem;
 }
 
-.footer-logo .logo-icon {
-    color: var(--accent);
+.footer-logo-img {
+    height: 40px;
+    width: auto;
+}
+
+.footer-brand-name {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .footer-logo-img {
+        height: 30px;
+    }
+    .footer-brand-name {
+        font-size: 1.25rem;
+    }
 }
 
 .footer-social {
