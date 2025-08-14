@@ -46,29 +46,38 @@ header {
     z-index: 2;
 }
 
+/* Logo Container */
 .logo {
-    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center; /* Vertically centers logo and text */
+    gap: 15px; /* Space between logo and text */
+    margin-bottom: 1rem;
 }
 
+/* Logo Image */
 .logo-img {
-    height: 50px; /* Adjust based on your logo proportions */
-    width: auto;
-    max-width: 200px;
+    height: 50px; /* Fixed height matching text */
+    width: auto; /* Maintains aspect ratio */
 }
 
-/* For mobile */
+/* Brand Name Text */
+.brand-name {
+    color: white;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1;
+    text-transform: uppercase; /* Optional: if you want all caps */
+}
+
+/* Mobile Responsiveness */
 @media (max-width: 768px) {
     .logo-img {
         height: 40px;
-        max-width: 160px;
     }
-}
-
-.tagline {
-    font-weight: 300;
-    margin-bottom: 1.5rem;
-    max-width: 600px;
-    opacity: 0.9;
+    .brand-name {
+        font-size: 1.5rem;
+    }
 }
 
 .header-bg {
